@@ -5,21 +5,23 @@ import LoginPage from './Screens/LoginPage';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Ttable from './Screens/table';
+import PrivateRoutes from './Components/PrivateRoutes';
 
 
 
 export default function App() {
   const isLoggedIn = useSelector(state=> state.userauth)
-  console.log(isLoggedIn)
   return ( 
-    <BrowserRouter>
-        <Routes>
-        <Route path="/" element={isLoggedIn ? <Navigate to="/loginpage" /> : <LoginPage />}/>
-        <Route path="/loginpage" element={<LoginPage/>} />
-          <Route path="/home" element={<Home/>} />
-          <Route path="/about" element={<About/>} />
-          <Route path="/table" element={<Ttable/>} />
-        </Routes>
-      </BrowserRouter>
+    <Routes>
+      {/* public routes */}
+      <Route path="/" element={<LoginPage/>} />
+      {/* protected routes */}
+          <Route element={<PrivateRoutes />}>
+            <Route exact path="/home" element={<Home/>}/>
+            <Route path="/about" element={<About/>} />
+            <Route path="/table" element={<Ttable/>} />
+         </Route>
+
+  </Routes>
   );
 }

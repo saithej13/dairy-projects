@@ -1,29 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
+import { LOGOUT } from '../Actions/userAction';
 import { useDispatch, useSelector } from 'react-redux';
 import { authAction } from '../Actions/authAction';
 
 export default function Navbar(props){
   const navigate = useNavigate();
-  const isLoggedIn = useSelector(state=> state.userauth)
+  const login = useSelector(state=> state.userLogin)
+  const { loading, data, error,accessToken } = login;
   const dispatch = useDispatch()
   const logout =()=>{
-    //console.log("logout button was clicked");
-    //setLoggedIn(false);
-
-    dispatch(authAction('LOGOUT'));
-    console.log(isLoggedIn)
-    console.log(isLoggedIn)
-    console.log(isLoggedIn)
-    console.log(isLoggedIn)
-    console.log(isLoggedIn)
-    navigate('/');
+    dispatch(LOGOUT());
   }
 return(
-   <nav className={`navbar navbar-fixed-top navbar-expand-lg navbar-${props.mode} bg-${props.mode}`}>
+   <nav className={`navbar navbar-fixed-top navbar-expand-lg navbar-light bg-white`}>
     {/* <nav className="navbar navbar-expand-lg navbar-dark bg-dark"> */}
-  <div className="container-fluid">
+  <div className="container-fluid" style={{ background: 'white'}}>
     <img src={require('./icon.png')} width={40} alt="t"/>
     <a className="navbar-brand" href="/">{props.title}</a>
     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
