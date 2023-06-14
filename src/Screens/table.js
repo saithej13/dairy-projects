@@ -9,7 +9,7 @@ import Navbar from "../Components/Navbar";
 export default function Ttable() {
   const [searchText, setSearchText] = useState('');
   const salesitems = useSelector(state=> state.salesorder)
-  const {loading,error} = salesitems;
+  const {loading,data,error} = salesitems;
   const [formvalues,setFormvalues] = useState({
     ccode:'700',
     tdate:'12-27-2022',
@@ -26,7 +26,6 @@ export default function Ttable() {
          
             //alert('Unable to Login, Please Check Credentials!')
         }
-        
       })
       .catch((error) => {
         alert(error)
@@ -169,7 +168,7 @@ export default function Ttable() {
       customStyles={tableCustomStyles}
       title="Sales Data"
       columns ={columns}
-      data = {salesitems.data["data"]}
+      data = {data}
       //data={filteredItems}
       //expandableRows
       //expandOnRowClicked //still we need to work on expandables 

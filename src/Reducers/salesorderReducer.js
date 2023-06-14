@@ -18,7 +18,7 @@ export const salesorderReducer = (state=initialState,action) => {
             return {
                 ...state,
                 loading:false,
-                data:action.payload,
+                data:action.payload.data,
             }
         case SALESORDER_FAILED:
             return{

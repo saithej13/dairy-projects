@@ -4,11 +4,12 @@ import Navbar from "../Components/Navbar";
 import { mgmtsaleAction } from "../Actions/mgmtsaleAction";
 import {Chart as ChartJS } from 'react-chartjs-2';
 import { Doughnut } from "react-chartjs-2";
+import { BarChart } from '../Charts/BarChart';
+//import LineChart from '../Components/LineChart';
 import {
   PieChart,
   Pie,
   Tooltip,
-  BarChart,
   XAxis,
   YAxis,
   Legend,
@@ -23,7 +24,7 @@ import { mgmtmilkAction } from '../Actions/mgmtmilkAction';
 
 
 
-export default function Home(props,{ isLoggedIn }) {
+export default function Home(props) {
   
   const mgmilkdata = useSelector(state=> state.mgmtmilkdata)
   const {loading,error} = mgmilkdata;
@@ -32,23 +33,20 @@ export default function Home(props,{ isLoggedIn }) {
     tdate:'12-05-2022'
   })
   const mgsaledata = useSelector(state=> state.mgmtsaledata)
-  const {sloading,serror} = mgsaledata;
+  const {sloading,isdataloaded,serror} = mgsaledata;
   const [mgsalevalues,setMgsalevalues] = useState({
     fdate:'12-01-2022',
-    tdate:'12-07-2022'
+    tdate:'12-02-2022'
   })
   //const [saledata] = usemgsaleMutation()
   const dispatch = useDispatch()
     useEffect( ()=> {
-      try {
+            dispatch(mgmtsaleAction(mgsalevalues));
             //getsaledataSlice();
             //dispatch(mgmtsaleAction(mgsalevalues))
             //filldata();
-           }
-      catch(err){
-        console.log(err);
-      }
-    }, [dispatch]);
+
+    }, []);
     const sdsdata=[];
      async function getsaledataSlice(){
       //const saleData = await saledata({ mgsalevalues }).unwrap()
@@ -132,18 +130,18 @@ export default function Home(props,{ isLoggedIn }) {
     { name:"VMD",qty:2.4}
   ];
   const gdata = [
-    { name: "JAN", qty: 0 ,fat:4.2,snf:8.2 },
-    { name: "FEB", qty: 10000, fat:4.9,snf:8.9 },
-    { name: "MAR", qty: 5000,fat:3.8,snf:8.3 },
-    {name:"APR",qty:15000,fat:4.1,snf:8.3 },
-    {name:"MAY",qty:10000,fat:3.9,snf:8.3 },
-    { name:"JUN",qty:20000,fat:3.7,snf:8.2},
-    { name: "JUL", qty: 15000 ,fat:4.2,snf:8.2 },
-    { name: "AUG", qty: 25000, fat:4.9,snf:8.9 },
-    { name: "SEP", qty: 20000,fat:3.8,snf:8.3 },
-    {name:"OCT",qty:30000,fat:4.1,snf:8.3 },
-    {name:"NOV",qty:25000,fat:3.9,snf:8.3 },
-    { name:"DEC",qty:40000,fat:3.7,snf:8.2}
+    {date:"01-01-2022", name: "JAN", LTRS: 0 ,FAT:4.2,SNF:8.2 },
+    {date:"01-01-2022", name: "FEB", LTRS: 10000, FAT:4.9,SNF:8.9 },
+    {date:"01-01-2022", name: "MAR", LTRS: 5000,FAT:3.8,SNF:8.3 },
+    {date:"01-01-2022",name:"APR",LTRS:15000,FAT:4.1,SNF:8.3 },
+    {date:"01-01-2022",name:"MAY",LTRS:10000,FAT:3.9,SNF:8.3 },
+    {date:"01-01-2022", name:"JUN",LTRS:20000,FAT:3.7,SNF:8.2},
+    {date:"01-01-2022", name: "JUL", LTRS: 15000 ,FAT:4.2,SNF:8.2 },
+    {date:"01-01-2022", name: "AUG", LTRS: 25000, FAT:4.9,SNF:8.9 },
+    {date:"01-01-2022", name: "SEP", LTRS: 20000,FAT:3.8,SNF:8.3 },
+    {date:"01-01-2022",name:"OCT",LTRS:30000,FAT:4.1,SNF:8.3 },
+    {date:"01-01-2022",name:"NOV",LTRS:25000,FAT:3.9,SNF:8.3 },
+    {date:"01-01-2022", name:"DEC",LTRS:40000,FAT:3.7,SNF:8.2}
   ];
 
   
@@ -266,17 +264,18 @@ export default function Home(props,{ isLoggedIn }) {
         </div>
         <div className="d-flex justify-content-center my-4">
         <ResponsiveContainer width="100%" height={300}>
+        {/* <LineChart/> */}
+          {/* <LineChartComponent/> */}
         <LineChart data={gdata}>
           <Legend/>
-          <Line type="monotone" dataKey="qty" stroke="#2196F3" strokeWidth={3}/>
-          <Line type="monotone" dataKey="fat" stroke="#F44236" strokeWidth={3}/>
-          <Line type="monotone" dataKey="snf" stroke="#FFCA29" strokeWidth={3}/>
-          {/* <CartesianGrid stroke="#ccc"/> */}
+          <Line type="monotone" dataKey="LTRS" stroke="#2196F3" strokeWidth={3}/>
+          <Line type="monotone" dataKey="FAT" stroke="#F44236" strokeWidth={3}/>
+          <Line type="monotone" dataKey="SNF" stroke="#FFCA29" strokeWidth={3}/>
           <XAxis dataKey="name" />
           <YAxis/>
           <Tooltip/>
-          
          </LineChart>
+          {/* <CartesianGrid stroke="#ccc"/> */}
          </ResponsiveContainer>
          </div>
          </div>
@@ -307,7 +306,7 @@ export default function Home(props,{ isLoggedIn }) {
          </div>
          </div>
         <div className="container my-5 mx-3">
-         
+         <BarChart/>
          <PieChart width={400} height={400}>
           <Pie
             dataKey="qty"
@@ -322,7 +321,7 @@ export default function Home(props,{ isLoggedIn }) {
           />
           <Tooltip />
         </PieChart>
-        <BarChart width={500} height={300} data={ddata} margin={{
+        {/* <BarChart width={500} height={300} data={ddata} margin={{
             top: 5,
             right: 30,
             left: 80,
@@ -336,7 +335,7 @@ export default function Home(props,{ isLoggedIn }) {
           <Legend />
           <CartesianGrid strokeDasharray="3 3" />
           <Bar dataKey="qty" fill="#042743" background={{ fill: "#eee" }} />
-        </BarChart>
+        </BarChart> */}
         </div>
         </div>
     </>

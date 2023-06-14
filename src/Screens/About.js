@@ -71,7 +71,6 @@ export default function About(props) {
     dispatch(mgmtsaleAction(mgsalevalues))
     console.log(data)
     console.log(mgsaledata.data)
-    console.log(mgsaledata.lables)
     //console.log(transformedData);
   }, [dispatch]);
  
@@ -135,7 +134,9 @@ export default function About(props) {
 
     </div>
     <div className='container my-5 mx-5' style={{ width: 600, height: 300 }}>
-      <Line options={options} data={data} />
+      {
+        loading ? <h1>Loading...</h1> : error ? <h1>Something Went wrong</h1> : <Line options={options} data={mgsaledata.data} />
+      }
     </div>
     </>
   )

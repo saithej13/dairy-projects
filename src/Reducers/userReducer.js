@@ -5,7 +5,8 @@ const initialState = {
     data:[],
     error:'',
     accessToken:false,
-    tokenExpiration:'',
+    accessTokenId:'',
+    //tokenExpiration:'',
 }
 
 export const loginUserReducer = (state=initialState,action) => {
@@ -21,7 +22,8 @@ export const loginUserReducer = (state=initialState,action) => {
                 loading:false,
                 data:action.payload,
                 accessToken:true,
-                tokenExpiration:action.payload.tokenExpiration,
+                accessTokenId:action.payload.accessToken,
+                //tokenExpiration:action.payload.accessToken.tokenExpiration,
             }
         case USER_LOGIN_FAILED:
             return{
@@ -29,7 +31,8 @@ export const loginUserReducer = (state=initialState,action) => {
                 loading:false,
                 error:action.payload,
                 accessToken:false,
-                tokenExpiration:'',
+                accessTokenId:'',
+                //tokenExpiration:'',
             }
 
         case USER_LOGOUT: 
@@ -39,7 +42,8 @@ export const loginUserReducer = (state=initialState,action) => {
                 data:[],
                 error:'',
                 accessToken:false,
-                tokenExpiration:'',
+                accessTokenId:'',
+                //tokenExpiration:'',
              }     
         default:
             return state

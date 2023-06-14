@@ -14,6 +14,7 @@ const initialState = {
     // },
     data:[],
     error:'',
+    isdataloaded:false,
     
 }
 
@@ -22,7 +23,8 @@ export const mgmtsaleReducer = (state=initialState,action) => {
         case MGMTSALEDATA_LOADING:
             return {
                 ...state,
-                loading:true
+                loading:true,
+                isdataloaded:false,
             }
         case MGMTSALEDATA_SUCCESS:
             return {
@@ -38,13 +40,16 @@ export const mgmtsaleReducer = (state=initialState,action) => {
                 //       }
                 //     ],
                 //   }
-                data:action.payload
+                data:action.payload.data,
+                isdataloaded:true,
+                error:'',
             }
         case MGMTSALEDATA_FAILED:
             return{
                 ...state,
                 loading:false,
-                error:action.payload
+                error:action.payload,
+                isdataloaded:false,
             }
         default:
             return state

@@ -25,9 +25,8 @@ const LoginPage = ({history}) => {
     }
     useEffect(()=>{
       if(accessToken){
-        navigate('./Home');
+       navigate('./Home');
       }
-      console.log(accessToken);
     },[accessToken])
     return (
         <div className="my-5 mx-5" >

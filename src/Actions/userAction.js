@@ -1,20 +1,19 @@
 //const { default: axios } = require("axios");
 import axios from "axios";
-import  { API_URL } from '../Components/api';
-import {history} from './history';
+import  { post,API_URL,setAccessToken,clearAccessToken } from '../Components/api';
 const { USER_LOGIN_SUCCESS, USER_LOGIN_FAILED, USER_LOGOUT,USER_LOGIN_LOADING } = require("../Types/userTypes.js");
 
 
 export const userAction = (loginPayload) => async (dispatch) => {
     try {
         dispatch({ type: USER_LOGIN_LOADING });
-        const config = {
-            'Content-Type': 'application/json', 
-        }
-        const { data } = await axios.post(`${API_URL}/users`,loginPayload, config)
+        const { data } = await post('/users',loginPayload)
+        const { accessToken } = data;
+        //setAccessToken(accessToken);
+        localStorage.setItem('accessToken', accessToken);
+        console.log(accessToken);
+        //sessionStorage.setItem('accessToken', accessToken);
         dispatch({ type: USER_LOGIN_SUCCESS, payload: data })
-        //history.push('/Home');
-        //window.location.reload();
         
     } catch (error) {
         alert(error);
@@ -23,5 +22,7 @@ export const userAction = (loginPayload) => async (dispatch) => {
 }
 
 export const LOGOUT =()=> (dispatch)=>{
+    localStorage.removeItem('accessToken');
+    clearAccessToken();
     dispatch({ type: USER_LOGOUT })
 }
