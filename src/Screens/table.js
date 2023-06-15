@@ -17,19 +17,7 @@ export default function Ttable() {
   })
   const dispatch = useDispatch()
     useEffect(() => {
-      dispatch(saleorderAction(formvalues)).then(() => {
-        if(salesitems===null)
-        {
-          console.log('sales item null hence we can show progressbar')
-        }
-        else{
-         
-            //alert('Unable to Login, Please Check Credentials!')
-        }
-      })
-      .catch((error) => {
-        alert(error)
-      });
+      dispatch(saleorderAction(formvalues))
     }, [dispatch]);
     const columns=[
       {
@@ -106,7 +94,25 @@ export default function Ttable() {
       }
     ];
 
-    //const filteredItems = salesitems.filter(item => item.name.toLowerCase().includes(searchText.toLowerCase()));
+    if (loading) {
+      return (
+        <div className='d-flex justify-content-center'>
+          <div>
+            <div className="spinner-border text-primary" role="status"></div>
+          </div>
+          <h1>Loading...</h1>
+        </div>
+      );
+    }
+
+    if (error) {
+      return (
+        <div className='d-flex flex-row mt-2 justify-content-center'>
+          <h1>Something went wrong</h1>;
+        </div>
+      );
+    }
+
     const handleFilter = (event) =>{
       if(event.target.value==="")
       {
@@ -121,38 +127,7 @@ export default function Ttable() {
         })
         setRecords(newData)*/
     }
-    /* const data =[
-      {
-        id:1,
-        name:'vadluri saiteja',
-        email:'saithej.13@gmail.com',
-        age:'25'
-      },
-      {
-        id:2,
-        name:'vadluri',
-        email:'sai.13@gmail.com',
-        age:'24'
-      },
-      {
-        id:3,
-        name:'saiteja',
-        email:'saithej@gmail.com',
-        age:'23'
-      },
-      {
-        id:4,
-        name:'teja',
-        email:'thej@gmail.com',
-        age:'22'
-      },
-      {
-        id:5,
-        name:'sai',
-        email:'sai@gmail.com',
-        age:'21'
-      }
-    ];*/
+
   return (
     //<h1> the cname is {salesitems?.data?.["Data"]?.[0]?.cname}</h1>
     <>
@@ -160,27 +135,34 @@ export default function Ttable() {
     
 
     <div>
-      {/* <h1>HIIIIIIIIIIIIIIIIII{salesitems.data["data"][0]["ITEMNAME"]}</h1> */}
-    <p>the sales data is {salesitems?.data?.["data"]?.[0].ITEMNAME}</p>
-    <div className="container mt-5">
-      <div className="text-end"><input type ="text" onChange={e => setSearchText(e.target.value)}/>
-      <DataTable
-      customStyles={tableCustomStyles}
-      title="Sales Data"
-      columns ={columns}
-      data = {data}
-      //data={filteredItems}
-      //expandableRows
-      //expandOnRowClicked //still we need to work on expandables 
-      //expandableRowsComponent={"testtttttttttttttttttttttttttttttttttttttttttttt"}
-      //data = {records}// if we want to filter the records we use this
-      selectableRows
-      fixedHeader
-      dense
-      // pagination //uses for paging the records to next pages
-      ></DataTable>
-</div>
-    </div>
+    
+    {data && data.length > 0 ? (
+      <div>
+      <p>the sales data is {salesitems?.data?.["data"]?.[0].ITEMNAME}</p>
+      
+        <div className="container mt-5">
+        <div className="text-end"><input type ="text" onChange={e => setSearchText(e.target.value)}/>
+        <DataTable
+        customStyles={tableCustomStyles}
+        title="Sales Data"
+        columns ={columns}
+        data = {data}
+        //data={filteredItems}
+        //expandableRows
+        //expandOnRowClicked //still we need to work on expandables 
+        //expandableRowsComponent={"testtttttttttttttttttttttttttttttttttttttttttttt"}
+        //data = {records}// if we want to filter the records we use this
+        selectableRows
+        fixedHeader
+        dense
+        // pagination //uses for paging the records to next pages
+        ></DataTable>
+  </div>
+      </div>
+      </div>
+      ) : (
+        <h1>No data available</h1>
+      )}  
   
   </div>
       </>

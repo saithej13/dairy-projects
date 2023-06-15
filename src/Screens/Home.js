@@ -169,17 +169,13 @@ export default function Home(props) {
 
 
   return (
-    // <div className={`form-check form-switch text-${props.mode==='light'?'dark':'light'}`}>
-//#f8f9fc
 <>
 
         <Navbar title="VST TECHONOLOGIES" mode={mode} toggleMode={toggleMode} />
         <div className="container" style={{ background: '#f8f9fc'}}>
-        {/* <div className="d-flex justify-content-left mx-4"> */}
           <div className="d-flex justify-content-left">
             <h2>Dashboard</h2>
           </div>
-          {/* <div className='d-flex justify-content-center row mx-3'></div> */}
           <div className='d-flex justify-content-center row'>
             <div className='col'>
         <div className="card" style={{width: '18rem'}}>
@@ -192,7 +188,6 @@ export default function Home(props) {
               <div>
               <img src={require('../images/calendar.png')} width={30} height={50} alt="t"/>
               </div>
-              {/* <a href="/" class="btn btn-primary">Go somewhere</a> */}
             </div>
             </div>
           </div>
@@ -202,27 +197,10 @@ export default function Home(props) {
             <div className="card-body">
               <h5 className="card-title">EARNINGS (ANNUAL)</h5>
               <p className="card-text">215000</p>
-              {/* <a href="/" class="btn btn-primary">Go somewhere</a> */}
             </div>
           </div>
           </div>
           <div className='col'>
-        {/* <div className="card" style={{width: '18rem'}}>
-            <div className="card-body">
-              <h5 className="card-title">TASKS</h5>
-              <div className='row'>
-                <div className='col'>
-                <p className="card-text">50%</p>
-                </div>
-                <div className='justify-content-left'>
-               <div className="progress" style={{height: "8px"}}>
-              <div className="progress-bar bg-info" role="progressbar" style={{width: '50%'}} aria-valuenow="0" aria-valuemin="0" aria-valuemax="0"></div>
-                </div>
-            </div>
-            </div>
-              <a href="/" class="btn btn-primary">Go somewhere</a>
-            </div>
-          </div> */}
             <div className="card" style={{ width: '18rem' }}>
           <div className="card-body">
             <h5 className="card-title">TASKS</h5>
@@ -240,21 +218,10 @@ export default function Home(props) {
             <div className="card-body">
               <h5 className="card-title">PRENDING REQUESTS</h5>
               <p className="card-text">18</p>
-              {/* <a href="/" class="btn btn-primary">Go somewhere</a> */}
             </div>
           </div>
           </div>
           </div>
-          {/* <label HtmlFor="exampleFormControlTextarea1" className="form-label">{text}</label> */}
-          {/* <textarea className="form-control" value={text} onChange={handleOnChange} id="myBox" rows="8"></textarea>
-          <div className="container mx-3 my-3">
-            <button className="btn btn-primary" onClick={handleclick}>To Uppercase</button>
-            <button className="btn btn-primary mx-3" onClick={handleclicklo}>To Lowecase</button>
-            <div style={{ color: props.colort }}>
-              <p>{text.split(" ").filter((element) => { return element.length !== 0 }).length} words and {text.length}characters</p>
-            </div>
-          </div> */}
-        {/* <div className="d-flex justify-content-center row my-3 mx-3"></div> */}
         <div className="d-flex justify-content-center row my-3">
         
         <div className="col">
@@ -264,8 +231,6 @@ export default function Home(props) {
         </div>
         <div className="d-flex justify-content-center my-4">
         <ResponsiveContainer width="100%" height={300}>
-        {/* <LineChart/> */}
-          {/* <LineChartComponent/> */}
         <LineChart data={gdata}>
           <Legend/>
           <Line type="monotone" dataKey="LTRS" stroke="#2196F3" strokeWidth={3}/>
@@ -321,21 +286,6 @@ export default function Home(props) {
           />
           <Tooltip />
         </PieChart>
-        {/* <BarChart width={500} height={300} data={ddata} margin={{
-            top: 5,
-            right: 30,
-            left: 80,
-            bottom: 5,
-          }}
-          barSize={20}
-          >
-          <XAxis dataKey="name" scale="point" padding={{ left: 10, right: 10 }} />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <CartesianGrid strokeDasharray="3 3" />
-          <Bar dataKey="qty" fill="#042743" background={{ fill: "#eee" }} />
-        </BarChart> */}
         </div>
         </div>
     </>

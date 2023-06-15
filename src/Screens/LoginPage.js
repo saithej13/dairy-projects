@@ -14,7 +14,6 @@ const LoginPage = ({history}) => {
         pwd:''
     })
     const {user,pwd}=formValues;
-    //const redirect =location.search ? location.search.split("=")[1] : "/";
     const changeHandler = (e) => {
         setFormValues({...formValues,[e.target.name]:e.target.value})
     }
@@ -23,13 +22,33 @@ const LoginPage = ({history}) => {
         e.preventDefault();
         dispatch(userAction(formValues))
     }
+  
     useEffect(()=>{
       if(accessToken){
        navigate('./Home');
       }
-    },[accessToken])
+    },[accessToken,navigate])
     return (
         <div className="my-5 mx-5" >
+          <div className='d-flex flex-row mt-2 justify-content-center'>
+          {loading ? (<div>
+          <h1>Loading...</h1>
+          <div> 
+            <div className="spinner-border text-primary" role="status">
+              </div>
+              </div>
+              </div>) : error ? <h1>Something went Wrong</h1> : <h1>Login Success...</h1>} 
+                </div>
+          <div className="dropdown">
+  <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Dropdown button
+  </button>
+  <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a className="dropdown-item" href="/">Action</a>
+    <a className="dropdown-item" href="/">Another action</a>
+    <a className="dropdown-item" href="/">Something else here</a>
+  </div>
+</div>
       <div className="card">
         <div className='row'>
           <div className='col-8'>
@@ -42,10 +61,9 @@ const LoginPage = ({history}) => {
               </div>
               <h1 className="fw-normal my-1 pb-2 text-center">Welcome Back</h1>
               <h5 className="fw-normal my-2 pb-3 text-center" style={{ letterSpacing: '1px' }}>SignIn to continue..,</h5>
-              {loading ? <h1>Loading...</h1> : error ? <h1>Something went Wrong</h1> : data?.accessToken}
               <input type="text" className="form-control mb-4" id="inputusername" value={user} name="user" onChange={changeHandler} placeholder="Enter Username"></input>
               <input type="password" id="inputpassword" className="form-control mb-4" value={pwd} name="pwd" onChange={changeHandler} aria-labelledby="passwordHelpBlock" placeholder="Enter Password"></input>
-              <button type="submit" className="btn btn-primary" onClick={submitHandler}>Login</button>
+              <button type="submit" className="btn btn-primary" onClick={submitHandler}>Sign In</button>
               <a className="small text-muted" href="#!">Forgot password?</a>
               <p className="mb-5 pb-lg-2" style={{ color: '#393f81' }}>Don't have an account? <a href="#!" style={{ color: '#393f81' }}>Register here</a></p>
               <div className='d-flex flex-row justify-content-start'>
