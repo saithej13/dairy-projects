@@ -3,15 +3,6 @@ import { MGMTSALEDATA_FAILED, MGMTSALEDATA_LOADING, MGMTSALEDATA_SUCCESS } from 
 
 const initialState = {
     loading:false,
-    // data:{
-    //     labels:[],
-    //     datasets: [{
-    //         label: "failed",
-    //         data: [],
-    //         backgroundColor: "#2196F3",
-    //         borderColor: "#2196F3",
-    //         }],
-    // },
     data:[],
     error:'',
     isdataloaded:false,
@@ -30,19 +21,9 @@ export const mgmtsaleReducer = (state=initialState,action) => {
             return {
                 ...state,
                 loading:false,
-                // data: {
-                //     labels:action.payload.lables,
-                //     datasets: [{
-                //         //label: action.payload.label,
-                //         data: action.payload.groupedData,
-                //         // backgroundColor: "#2196F3",
-                //         // borderColor: "#2196F3",
-                //       }
-                //     ],
-                //   }
                 data:action.payload.data,
-                isdataloaded:true,
                 error:'',
+                isdataloaded:true,
             }
         case MGMTSALEDATA_FAILED:
             return{

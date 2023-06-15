@@ -24,7 +24,6 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-const labels = ["2017", "2018", "2019", "2020", "2021", "2022"];
 
 const options = {
   plugins: {
@@ -35,33 +34,10 @@ const options = {
   },
 };
 
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: "React",
-      data: [32, 42, 51, 60, 51, 95],
-      backgroundColor: "#2196F3",
-      borderColor: "#2196F3",
-    },
-    {
-      label: "Angular",
-      data: [37, 42, 41, 37, 31, 44],
-      backgroundColor: "#F44236",
-      borderColor: "#F44236",
-    },
-    {
-      label: "Vue",
-      data: [60, 54, 54, 28, 27, 49],
-      backgroundColor: "#FFCA29",
-      borderColor: "#FFCA29",
-    },
-  ],
-};
 
 export default function About(props) {
   const mgsaledata = useSelector(state=> state.mgmtsaledata)
-  const {loading,error} = mgsaledata;
+  const {loading,data,error} = mgsaledata;
   const [mgsalevalues,setMgsalevalues] = useState({
     fdate:'12-01-2022',
     tdate:'12-05-2022'
@@ -69,25 +45,16 @@ export default function About(props) {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(mgmtsaleAction(mgsalevalues))
-    console.log(data)
-    console.log(mgsaledata.data)
-    //console.log(transformedData);
   }, [dispatch]);
- 
-  const gdata = [
-    { name: "BNG", qty: 4.1 ,fat:4.2,snf:8.2 },
-    { name: "IND", qty: 2.4, fat:4.9,snf:8.9 },
-    { name: "JGM", qty: 3.5,fat:3.8,snf:8.3 },
-    {name:"NGR",qty:3.2,fat:4.1,snf:8.3 },
-    {name:"VNT",qty:4.4,fat:3.9,snf:8.3 },
-    { name:"VMD",qty:2.4,fat:3.7,snf:8.2}
-  ];
-// let myStyle ={
-// color : props.mode==='dark'?'white':'#042743',
-// backgroundColor : props.mode==='dark'?'rgb(36 74 104)':'white',
-// border:'2px solid',
-// borderColor:props.mode==='dark'?'white':'#042743'
-// }
+
+  if (!data || !data.labels || !data.datasets) {
+    return (<div>
+      <div className="spinner-border text-primary" role="status"></div>
+      <h1>Loading...</h1>
+      </div>
+      ) // Display a loading message while data is being fetched
+  }
+
   return (
     <>
      <Navbar title="VST TECHONOLOGIES"/>
@@ -134,9 +101,15 @@ export default function About(props) {
 
     </div>
     <div className='container my-5 mx-5' style={{ width: 600, height: 300 }}>
-      {
+    {data.labels.length > 0 ? (
+        <Line options={options} data={data}/>
+      ) : (
+        <h1>No data available</h1>
+      )}
+      {/* {
         loading ? <h1>Loading...</h1> : error ? <h1>Something Went wrong</h1> : <Line options={options} data={mgsaledata.data} />
-      }
+      } */}
+       
     </div>
     </>
   )

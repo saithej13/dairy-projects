@@ -9,10 +9,7 @@ export const userAction = (loginPayload) => async (dispatch) => {
         dispatch({ type: USER_LOGIN_LOADING });
         const { data } = await post('/users',loginPayload)
         const { accessToken } = data;
-        //setAccessToken(accessToken);
         localStorage.setItem('accessToken', accessToken);
-        console.log(accessToken);
-        //sessionStorage.setItem('accessToken', accessToken);
         dispatch({ type: USER_LOGIN_SUCCESS, payload: data })
         
     } catch (error) {
