@@ -35,7 +35,6 @@ const api = axios.create({
   );
   
   // Create a dispatch function outside the interceptor
-dispath = useDispatch();
 // Add a response interceptor
 api.interceptors.response.use(
   (response) => response,
@@ -46,7 +45,6 @@ api.interceptors.response.use(
       localStorage.removeItem('accessToken');
       window.location.href = '/'; // Redirect to login page
       alert('Session Expired , Please Login');
-      dispath
     }
     return Promise.reject(error);
   }

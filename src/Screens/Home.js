@@ -21,6 +21,7 @@ import {
 } from "recharts";
 
 import { mgmtmilkAction } from '../Actions/mgmtmilkAction';
+import { DoughnutChart } from "../Charts/DoughnutChart";
 
 
 
@@ -272,6 +273,7 @@ export default function Home(props) {
          </div>
         <div className="container my-5 mx-3">
          <BarChart/>
+         <DoughnutChart/>
          <PieChart width={400} height={400}>
           <Pie
             dataKey="qty"

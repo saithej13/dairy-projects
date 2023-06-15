@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import Navbar from "../Components/Navbar";
 import { mgmtsaleAction } from '../Actions/mgmtsaleAction';
+import { PieChart } from "../Charts/PieChart";
 
 import {
   Chart as ChartJS,
@@ -14,6 +15,7 @@ import {
   Legend,
 } from "chart.js";
 import {  Line } from "react-chartjs-2";
+import { LineChart } from '../Charts/LineChart';
 
 ChartJS.register(
   CategoryScale,
@@ -98,7 +100,6 @@ export default function About(props) {
     </div>
   </div>
 </div>
-
     </div>
     <div className='container my-5 mx-5' style={{ width: 600, height: 300 }}>
     {data.labels.length > 0 ? (
@@ -110,6 +111,9 @@ export default function About(props) {
         loading ? <h1>Loading...</h1> : error ? <h1>Something Went wrong</h1> : <Line options={options} data={mgsaledata.data} />
       } */}
        
+    </div>
+    <div>
+    {/* <PieChart/> */}
     </div>
     </>
   )

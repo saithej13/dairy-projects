@@ -1,7 +1,7 @@
 //const { default: axios } = require("axios");
 import axios from "axios";
 import  { post,API_URL,setAccessToken,clearAccessToken } from '../Components/api';
-const { USER_LOGIN_SUCCESS, USER_LOGIN_FAILED, USER_LOGOUT,USER_LOGIN_LOADING } = require("../Types/userTypes.js");
+const { USER_LOGIN_SUCCESS, USER_LOGIN_FAILED, USER_LOGOUT,USER_LOGIN_LOADING, USER_TOKEN_EXPIRED } = require("../Types/userTypes.js");
 
 
 export const userAction = (loginPayload) => async (dispatch) => {
@@ -22,4 +22,9 @@ export const LOGOUT =()=> (dispatch)=>{
     localStorage.removeItem('accessToken');
     clearAccessToken();
     dispatch({ type: USER_LOGOUT })
+}
+export const LOGOUT_TOKEN_EXPIRED =()=> (dispatch)=>{
+    localStorage.removeItem('accessToken');
+    clearAccessToken();
+    dispatch({ type: USER_TOKEN_EXPIRED })
 }

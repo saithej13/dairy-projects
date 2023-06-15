@@ -1,4 +1,4 @@
-import { USER_LOGIN_FAILED,USER_LOGIN_SUCCESS,USER_LOGIN_LOADING,USER_LOGOUT } from "../Types/userTypes"
+import { USER_LOGIN_FAILED,USER_LOGIN_SUCCESS,USER_LOGIN_LOADING,USER_LOGOUT,USER_TOKEN_EXPIRED } from "../Types/userTypes"
 
 const initialState = {
     loading:false,
@@ -44,7 +44,17 @@ export const loginUserReducer = (state=initialState,action) => {
                 accessToken:false,
                 accessTokenId:'',
                 //tokenExpiration:'',
-             }     
+             }   
+        case USER_TOKEN_EXPIRED: 
+            return{
+                ...state,
+                loading:false,
+                data:[],
+                error:'',
+                accessToken:false,
+                accessTokenId:'',
+                //tokenExpiration:'',
+             }  
         default:
             return state
     }

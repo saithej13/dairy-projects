@@ -42,6 +42,13 @@ ChartJS.register(
       </div>
       ) // Display a loading message while data is being fetched
   }
+  if (error) {
+    return (
+      <div className='d-flex flex-row mt-2 justify-content-center'>
+        <h1>Something went wrong</h1>;
+      </div>
+    );
+  }
   return (
     <div>
       {data.labels.length > 0 ? (
