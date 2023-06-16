@@ -46,7 +46,7 @@ export default function About(props) {
   })
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(mgmtsaleAction(mgsalevalues))
+    //dispatch(mgmtsaleAction(mgsalevalues))
   }, [dispatch]);
 
   if (!data || !data.labels || !data.datasets) {

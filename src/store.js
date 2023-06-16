@@ -1,6 +1,6 @@
 import { loginUserReducer } from "./Reducers/userReducer";
 // import { authReducer } from "./Reducers/authReducer";
-import { salesorderReducer } from "./Reducers/salesorderReducer";
+import { loadcustReducer, salesorderReducer } from "./Reducers/salesorderReducer";
 import { milkdataReducer } from "./Reducers/mgmtmilkReducer";
 import { mgmtsaleReducer } from "./Reducers/mgmtsaleReducer";
 
@@ -17,6 +17,7 @@ const reducers = combineReducers({
     userLogin:loginUserReducer,
     // userauth:authReducer,
     salesorder:salesorderReducer,
+    loadcust:loadcustReducer,
     mgmtmilkdata:milkdataReducer,
     mgmtsaledata:mgmtsaleReducer,
 })

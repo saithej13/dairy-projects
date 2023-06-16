@@ -1,23 +1,31 @@
 import React, { useEffect, useState } from "react";
-import { saleorderAction } from "../Actions/saleorderAction";
+import { loadcustAction, saleorderAction } from "../Actions/saleorderAction";
 import { useDispatch, useSelector } from 'react-redux';
 import DataTable from "react-data-table-component";
 import { tableCustomStyles } from '../Components/tablestyle';
 import Navbar from "../Components/Navbar";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import '../css/table.css';
+import moment from 'moment';
 
 
 export default function Ttable() {
   const [searchText, setSearchText] = useState('');
-  const salesitems = useSelector(state=> state.salesorder)
+  const salesitems = useSelector(state=> state.salesorder);
   const {loading,data,error} = salesitems;
+  const custData = useSelector(state => state.loadcust);
+  const {custloadingss,custdata,custerror} = custData;
+  const [tdate, setTdate] = useState(new Date());
+  const [cname, setCname] = useState('Select Customer ');
   const [formvalues,setFormvalues] = useState({
-    ccode:'700',
-    tdate:'12-27-2022',
-    rcode:'24'
+    ccode:'',
+    tdate:'',
+    rcode:''
   })
   const dispatch = useDispatch()
     useEffect(() => {
-      dispatch(saleorderAction(formvalues))
+      dispatch(loadcustAction())
     }, [dispatch]);
     const columns=[
       {
@@ -93,26 +101,16 @@ export default function Ttable() {
       selector:row=><img src={require("../images/edit.png")}/>,
       }
     ];
-
-    if (loading) {
-      return (
-        <div className='d-flex justify-content-center'>
-          <div>
-            <div className="spinner-border text-primary" role="status"></div>
-          </div>
-          <h1>Loading...</h1>
-        </div>
-      );
-    }
-
-    if (error) {
-      return (
-        <div className='d-flex flex-row mt-2 justify-content-center'>
-          <h1>Something went wrong</h1>;
-        </div>
-      );
-    }
-
+    const submitHandler = (ccode,cname,rcode) => {
+      const formattedDate = moment(tdate).format('MM-DD-YYYY');
+      setFormvalues({ccode:ccode.toString(),tdate:formattedDate,rcode:rcode.toString()});
+      setCname({cname:cname});
+      if(formvalues.ccode===''||formvalues.rcode===''||formvalues.tdate===''){
+        return
+      }
+      console.log(formvalues);
+      dispatch(saleorderAction(formvalues))
+  }
     const handleFilter = (event) =>{
       if(event.target.value==="")
       {
@@ -127,19 +125,60 @@ export default function Ttable() {
         })
         setRecords(newData)*/
     }
-
   return (
     //<h1> the cname is {salesitems?.data?.["Data"]?.[0]?.cname}</h1>
     <>
     <Navbar title="VST TECHONOLOGIES" />
-    
-
     <div>
-    
-    {data && data.length > 0 ? (
+      <div className="row">
+        <div className="col">
+    <div className="card mx-5" style={{width: '15rem'}}>
+      <div className="card-header">
+        <h5>Sales Data Report</h5>
+        </div>
+            <div className="card-body">
+              <div className="row">
+                <div className="col">
+                <h5 className="card-title">Select Date</h5>
+              <DatePicker portalId="root-portal" selected={tdate} onChange={(date) => setTdate(date)} dateFormat="dd/MM/yyyy" />
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+          <div className="col">
+          <div className="card mx-5" style={{width: '15rem'}}>
+      <div className="card-header">
+        <h5>Sales Data Report</h5>
+        </div>
+            <div className="card-body">
+              <div className="row">
+                <div className="col">
+                <h5 className="card-title">Select Customer</h5>
+                <div className="dropdown-center">
+  <button className="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">select</button>
+    <ul className="dropdown-menu dropdown-menu-end dropdown-menu-lg-start" role="menu">
+    {custdata && custdata.map(item => (
+          <li key={item.ccode}>
+            <button className="dropdown-item text-start" onClick={()=>submitHandler(item.ccode,item.cname,item.rcode)}  type="button">{item.cname}</button>
+          </li>
+        ))}
+  </ul>
+</div>
+                </div>
+              </div>
+            </div>
+            </div>
+          </div>
+          </div>
+   { loading ? (<div className="d-flex flex-row mt-2 justify-content-center">
+    <div> 
+      <div className="spinner-border text-primary" role="status"></div>
+     </div>
+          <h1>Loading...</h1>
+       </div>) : error ? <h1>Something went Wrong</h1> : 
+    data && data.length > 0 ? (
       <div>
-      <p>the sales data is {salesitems?.data?.["data"]?.[0].ITEMNAME}</p>
-      
         <div className="container mt-5">
         <div className="text-end"><input type ="text" onChange={e => setSearchText(e.target.value)}/>
         <DataTable
@@ -162,8 +201,8 @@ export default function Ttable() {
       </div>
       ) : (
         <h1>No data available</h1>
-      )}  
-  
+      )  
+      }
   </div>
       </>
   )

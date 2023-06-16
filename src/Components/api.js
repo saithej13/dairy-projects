@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { userAction } from '../Actions/userAction';
 
-export const API_URL = 'http://192.168.1.8:8080/api';
+export const API_URL = 'http://192.168.1.9:8080/api';
 
 
 const api = axios.create({
@@ -45,6 +45,9 @@ api.interceptors.response.use(
       localStorage.removeItem('accessToken');
       window.location.href = '/'; // Redirect to login page
       alert('Session Expired , Please Login');
+    }
+    else if(error.response){
+      alert(error)
     }
     return Promise.reject(error);
   }

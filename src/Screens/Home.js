@@ -37,36 +37,18 @@ export default function Home(props) {
   const {sloading,isdataloaded,serror} = mgsaledata;
   const [mgsalevalues,setMgsalevalues] = useState({
     fdate:'12-01-2022',
-    tdate:'12-02-2022'
+    tdate:'12-05-2022'
   })
   //const [saledata] = usemgsaleMutation()
   const dispatch = useDispatch()
     useEffect( ()=> {
-            dispatch(mgmtsaleAction(mgsalevalues));
+            //dispatch(mgmtsaleAction(mgsalevalues));
             //getsaledataSlice();
             //dispatch(mgmtsaleAction(mgsalevalues))
             //filldata();
 
     }, []);
     const sdsdata=[];
-     async function getsaledataSlice(){
-      //const saleData = await saledata({ mgsalevalues }).unwrap()
-    }
-    const filldata=()=>{
-      for(let i=0;i<mgsaledata?.data?.["data"]?.length;i++)
-          {
-            const item = mgsaledata.data["data"][i];
-            const transformedItem = {
-              tdate:item.TDATE,
-              catname:item.CATNAME,
-              qty:item.QTY,
-              //name: item.bname, // Modify this based on the actual key in your API data
-              //qty: parseInt(item.LTRS) // Modify this based on the actual key in your API data
-            };
-            sdsdata.push(transformedItem);
-          }
-          //console.log(slabels)
-    }
   const [text, setText] = useState('Enter text here');
   const handleOnChange = (event) => {
     console.log(event.target.value);
@@ -97,23 +79,7 @@ export default function Home(props) {
   },
 };
   const transformedData = [];
-  let marray=()=>{
   
-
-      for(let i=0;i<mgmilkdata?.data?.["data"]?.length;i++)
-      {
-        const item = mgmilkdata.data["data"][i];
-        const transformedItem = {
-          name: item.bname, // Modify this based on the actual key in your API data
-          qty: parseInt(item.LTRS) // Modify this based on the actual key in your API data
-        };
-
-        transformedData.push(transformedItem);
-      }
-      console.log(transformedData);
-      console.log(gdata)
-      
-  }
   const cdata = [
     
     { name: "Group A", value: 200, fill: "#1cc88a" },
@@ -148,7 +114,6 @@ export default function Home(props) {
   
  
   const handleclick = () => {
-    marray();
     let newText = text.toUpperCase();
     setText(newText);
   }

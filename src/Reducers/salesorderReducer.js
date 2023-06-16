@@ -1,5 +1,5 @@
 //import { createStore } from 'redux';
-import { SALESORDER_FAILED, SALESORDER_LOADING, SALESORDER_SUCCESS } from "../Types/salesorderTypes";
+import { SALESORDER_FAILED, SALESORDER_LOADING, SALESORDER_SUCCESS,LOADCUSTOMERS_FAILED,LOADCUSTOMERS_LOADING,LOADCUSTOMERS_SUCCESS } from "../Types/salesorderTypes";
 
 const initialState = {
     loading:false,
@@ -25,6 +25,36 @@ export const salesorderReducer = (state=initialState,action) => {
                 ...state,
                 loading:false,
                 error:action.payload
+            }
+        default:
+            return state
+    }
+}
+
+const initialloadcustState = {
+    custloadingss:false,
+    custdata:[],
+    custerror:''
+}
+
+export const loadcustReducer = (state=initialloadcustState,action) => {
+    switch (action.type) {
+        case LOADCUSTOMERS_LOADING:
+            return {
+                ...state,
+                custloadingss:true
+            }
+        case LOADCUSTOMERS_SUCCESS:
+            return {
+                ...state,
+                custloadingss:false,
+                custdata:action.payload.data,
+            }
+        case LOADCUSTOMERS_FAILED:
+            return{
+                ...state,
+                custloadingss:false,
+                custerror:action.payload
             }
         default:
             return state

@@ -37,11 +37,11 @@ import {
   const {loading,data,error} = mgsaledata;
   const [mgsalevalues,setMgsalevalues] = useState({
     fdate:'12-01-2022',
-    tdate:'12-02-2022'
+    tdate:'12-05-2022'
   })
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(mgmtsaleAction(mgsalevalues))
+    //dispatch(mgmtsaleAction(mgsalevalues))
   }, [dispatch]);
 
   if (!data || !data.labels || !data.datasets) {
