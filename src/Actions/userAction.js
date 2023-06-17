@@ -13,7 +13,6 @@ export const userAction = (loginPayload) => async (dispatch) => {
         dispatch({ type: USER_LOGIN_SUCCESS, payload: data })
         
     } catch (error) {
-        alert(error);
         dispatch({ type: USER_LOGIN_FAILED, payload: error })
     }
 }

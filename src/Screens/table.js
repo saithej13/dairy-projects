@@ -105,10 +105,10 @@ export default function Ttable() {
       const formattedDate = moment(tdate).format('MM-DD-YYYY');
       setFormvalues({ccode:ccode.toString(),tdate:formattedDate,rcode:rcode.toString()});
       setCname({cname:cname});
+      console.log(formvalues);
       if(formvalues.ccode===''||formvalues.rcode===''||formvalues.tdate===''){
         return
       }
-      console.log(formvalues);
       dispatch(saleorderAction(formvalues))
   }
     const handleFilter = (event) =>{
@@ -120,13 +120,26 @@ export default function Ttable() {
       else{
         console.log(event.target.value)
       }
-        /*const newData = records.filter(row=>{
-          return row.name.toLowerCase().includes(event.target.toLowerCase())
-        })
-        setRecords(newData)*/
     }
+    const changeHandler=(e) =>{
+      const values = e.target.value.split(",");
+      const ccode = values[0];
+      const rcode = values[2];
+      const formattedDate = moment(tdate).format('MM-DD-YYYY');
+    
+      setFormvalues((prevFormValues) => ({
+        ...prevFormValues,
+        ccode: ccode.toString(),
+        tdate:formattedDate,
+        rcode: rcode.toString(),
+      }));
+    }
+    useEffect(()=>{
+      if (formvalues.ccode !== '' && formvalues.rcode !== '' && formvalues.tdate !== '') {
+        dispatch(saleorderAction(formvalues));
+      }
+    },[formvalues,dispatch])
   return (
-    //<h1> the cname is {salesitems?.data?.["Data"]?.[0]?.cname}</h1>
     <>
     <Navbar title="VST TECHONOLOGIES" />
     <div>
@@ -154,17 +167,15 @@ export default function Ttable() {
             <div className="card-body">
               <div className="row">
                 <div className="col">
-                <h5 className="card-title">Select Customer</h5>
-                <div className="dropdown-center">
-  <button className="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">select</button>
-    <ul className="dropdown-menu dropdown-menu-end dropdown-menu-lg-start" role="menu">
-    {custdata && custdata.map(item => (
-          <li key={item.ccode}>
-            <button className="dropdown-item text-start" onClick={()=>submitHandler(item.ccode,item.cname,item.rcode)}  type="button">{item.cname}</button>
-          </li>
-        ))}
-  </ul>
-</div>
+                <h5 className="card-title">{cname?cname.cname:'Select Customer'}</h5>
+                <select onChange={(e)=>changeHandler(e)}>
+                <option key={0} value={[0,0,0]}>Select Customer</option>
+                {custdata && custdata.map(item => (
+                          <option key={item.ccode} value={[item.ccode,item.cname,item.rcode]}>
+                            {item.cname}
+                          </option>
+                        ))}
+                </select>
                 </div>
               </div>
             </div>
@@ -180,7 +191,6 @@ export default function Ttable() {
     data && data.length > 0 ? (
       <div>
         <div className="container mt-5">
-        <div className="text-end"><input type ="text" onChange={e => setSearchText(e.target.value)}/>
         <DataTable
         customStyles={tableCustomStyles}
         title="Sales Data"
@@ -196,7 +206,6 @@ export default function Ttable() {
         dense
         // pagination //uses for paging the records to next pages
         ></DataTable>
-  </div>
       </div>
       </div>
       ) : (

@@ -1,8 +1,10 @@
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { userAction } from '../Actions/userAction';
+import { LOGOUT_TOKEN_EXPIRED, userAction } from '../Actions/userAction';
+import { store } from '../store';
 
 export const API_URL = 'http://192.168.1.9:8080/api';
+
 
 
 const api = axios.create({
@@ -42,12 +44,12 @@ api.interceptors.response.use(
     if (error.response && error.response.status === 401) {
       // Handle 401 Unauthorized error
       // Clear token, dispatch logout action, redirect, and show error message to the user
-      localStorage.removeItem('accessToken');
-      window.location.href = '/'; // Redirect to login page
-      alert('Session Expired , Please Login');
+      // localStorage.removeItem('accessToken');
+      store.dispatch(LOGOUT_TOKEN_EXPIRED())
+      alert(error.response.data.error);
     }
-    else if(error.response){
-      alert(error)
+    else if(error.response && error.response.status !== 401){
+      alert(error.response.data.error)
     }
     return Promise.reject(error);
   }

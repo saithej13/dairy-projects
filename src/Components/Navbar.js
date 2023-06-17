@@ -17,7 +17,7 @@ return(
    <nav className={`navbar navbar-fixed-top navbar-expand-lg navbar-light bg-white`}>
     {/* <nav className="navbar navbar-expand-lg navbar-dark bg-dark"> */}
   <div className="container-fluid" style={{ background: 'white'}}>
-    <img src={require('./icon.png')} width={40} alt="t"/>
+    <img src={require('../images/icon.png')} width={40} alt="t"/>
     <a className="navbar-brand" href="/">{props.title}</a>
     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span className="navbar-toggler-icon"></span>

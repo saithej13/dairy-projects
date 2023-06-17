@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Ttable from './Screens/table';
 import PrivateRoutes from './Components/PrivateRoutes';
+// import './App.css'
 
 
 
@@ -15,7 +16,7 @@ export default function App() {
     <Routes>
       {/* public routes */}
       <Route path="/" element={<LoginPage/>} />
-      {/* protected routes */}
+      {/* protected / Private routes */}
           <Route element={<PrivateRoutes />}>
             <Route exact path="/home" element={<Home/>}/>
             <Route path="/about" element={<About/>} />
