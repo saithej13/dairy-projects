@@ -2,61 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import Navbar from "../Components/Navbar";
 import { mgmtsaleAction } from '../Actions/mgmtsaleAction';
-import { PieChart } from "../Charts/PieChart";
+import { LineChart } from "../Charts/LineChart";
 
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
-import {  Line } from "react-chartjs-2";
-import { LineChart } from '../Charts/LineChart';
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-);
-
-const options = {
-  plugins: {
-    legend: {
-      //bottom , top , left , right
-      position: "top",
-    },
-  },
-};
 
 
 export default function About(props) {
-  const mgsaledata = useSelector(state=> state.mgmtsaledata)
-  const {loading,data,error} = mgsaledata;
-  const [mgsalevalues,setMgsalevalues] = useState({
-    fdate:'12-01-2022',
-    tdate:'12-05-2022'
-  })
-  const dispatch = useDispatch()
-  useEffect(() => {
-    //dispatch(mgmtsaleAction(mgsalevalues))
-  }, [dispatch]);
-
-  if (!data || !data.labels || !data.datasets) {
-    return (<div>
-      <div className="spinner-border text-primary" role="status"></div>
-      <h1>Loading...</h1>
-      </div>
-      ) // Display a loading message while data is being fetched
-  }
-
+ 
   return (
     <>
      <Navbar title="VST TECHONOLOGIES"/>
@@ -102,15 +53,7 @@ export default function About(props) {
 </div>
     </div>
     <div className='container my-5 mx-5' style={{ width: 600, height: 300 }}>
-    {data.labels.length > 0 ? (
-        <Line options={options} data={data}/>
-      ) : (
-        <h1>No data available</h1>
-      )}
-      {/* {
-        loading ? <h1>Loading...</h1> : error ? <h1>Something Went wrong</h1> : <Line options={options} data={mgsaledata.data} />
-      } */}
-       
+    <LineChart/> 
     </div>
     <div>
     {/* <PieChart/> */}

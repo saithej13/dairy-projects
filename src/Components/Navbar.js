@@ -14,7 +14,7 @@ export default function Navbar(props){
     dispatch(LOGOUT());
   }
 return(
-   <nav className={`navbar navbar-fixed-top navbar-expand-lg navbar-light bg-white`}>
+   <nav className={`navbar navbar-fixed-top navbar-expand-lg navbar-light bg-white`} style={{position:"fixed",zIndex:999,width:"100%"}}>
     {/* <nav className="navbar navbar-expand-lg navbar-dark bg-dark"> */}
   <div className="container-fluid" style={{ background: 'white'}}>
     <img src={require('../images/icon.png')} width={40} alt="t"/>

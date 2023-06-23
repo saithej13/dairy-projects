@@ -61,7 +61,7 @@ import {
   return (
     <div>
       {data.labels.length > 0 ? (
-        <Line data={data} options={options} />
+        <Line data={data} options={options}/>
       ) : (
         <h1>No data available</h1>
       )}
